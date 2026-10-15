@@ -1,0 +1,137 @@
+import { test, expect } from '@playwright/test';
+import path from 'node:path';
+
+test('real backend: load, solve, receipt, export, replay, commit, disrupt and replan', async ({ page, request }) => {
+  const errors: string[] = [];
+  page.on('pageerror', e => errors.push(e.message));
+  const samples = await (await request.get('/api/v1/demo-scenarios')).json();
+  await request.post('/api/v1/scenarios', { data: samples.find((s: any) => s.scenario_id === 'demo-normal-001') });
+  await page.goto('/');
+  await expect(page.getByRole('button', { name: 'Generate plan', exact: true })).toBeEnabled();
+  await page.getByRole('button', { name: 'Generate plan', exact: true }).click();
+  await expect(page.getByText('Plan generated and independently validated.')).toBeVisible({ timeout: 30_000 });
+  await page.getByRole('button', { name: 'Inventory', exact: true }).click();
+  await expect(page.getByRole('table')).toContainText('B-TOM-01');
+  await page.getByRole('button', { name: 'View receipt' }).first().click();
+  await expect(page.getByRole('dialog')).toContainText('B-TOM-01');
+  await page.getByRole('button', { name: 'Close receipt' }).click();
+  const downloaded = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Export plan', exact: true }).click();
+  expect((await downloaded).suggestedFilename()).toMatch(/^plan_.*\.json$/);
+  await page.getByRole('button', { name: 'Dispatch', exact: true }).click();
+  await expect(page.getByRole('table').first()).toContainText('V-');
+  await page.getByRole('button', { name: 'Evaluation', exact: true }).click();
+  await page.getByRole('button', { name: 'Run replay', exact: true }).click();
+  await expect(page.getByText(/Inventory reconciled: Yes/)).toBeVisible({ timeout: 30_000 });
+  await page.getByRole('button', { name: 'Commit plan', exact: true }).click();
+  await expect(page.getByText('Trips reserved. Generate a new plan for remaining stock.')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Commit plan', exact: true })).toBeDisabled();
+  await page.getByRole('button', { name: 'Disruptions', exact: true }).click();
+  await page.getByLabel('Delay minutes').fill('20');
+  await page.getByRole('button', { name: 'Apply delay', exact: true }).click();
+  await expect(page.getByText(/Delay recorded/)).toBeVisible();
+  await page.getByRole('button', { name: 'Generate plan', exact: true }).click();
+  await expect(page.getByText('Plan generated and independently validated.')).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByRole('alert')).toContainText('operator intervention is required');
+  await page.getByRole('button', { name: 'Release reservation V-TRUCK-01 R-EAST', exact: true }).click();
+  await expect(page.getByText('Reservation released and cancellation fee recorded. Generate a new plan for the recovered stock.')).toBeVisible();
+  await page.getByRole('button', { name: 'Generate plan', exact: true }).click();
+  await expect(page.getByText('Plan generated and independently validated.')).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: '../work/browser-audit.png', fullPage: true });
+  expect(errors).toEqual([]);
+});
+
+test('import validation reports errors and can import the real sample', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('button', { name: 'Generate plan', exact: true })).toBeEnabled();
+  await page.getByLabel('Import scenario file').setInputFiles({ name: 'bad.json', mimeType: 'application/json', buffer: Buffer.from('{invalid') });
+  await expect(page.getByRole('alert')).toBeVisible();
+  await page.getByLabel('Import scenario file').setInputFiles(path.resolve('../scenarios/demo/demo-shortage-002.json'));
+  await expect(page.getByText('Scenario imported as a new version.')).toBeVisible();
+  await expect(page.getByLabel('Scenario', { exact: true })).toHaveValue('demo-shortage-002');
+});
+
+test('inspection ranking and observation are connected to the backend', async ({ page, request }) => {
+  const samples = await (await request.get('/api/v1/demo-scenarios')).json();
+  await request.post('/api/v1/scenarios', { data: samples.find((s: any) => s.scenario_id === 'demo-normal-001') });
+  await page.goto('/');
+  await expect(page.getByRole('button', { name: 'Generate plan', exact: true })).toBeEnabled();
+  await page.getByRole('button', { name: 'Inspections', exact: true }).click();
+  await page.getByRole('button', { name: 'Rank inspections', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Simulate inspection', exact: true }).first()).toBeEnabled({ timeout: 120_000 });
+  await page.getByRole('button', { name: 'Simulate inspection', exact: true }).first().click();
+  await expect(page.getByText(/Observed .* life for/)).toBeVisible({ timeout: 30_000 });
+  const state = await (await request.get('/api/v1/scenarios/demo-normal-001/state')).json();
+  expect(state.inspection_history).toHaveLength(1);
+});
+
+test('analysis panels and narrow-screen layout work with the real solver', async ({ page, request }) => {
+  const samples = await (await request.get('/api/v1/demo-scenarios')).json();
+  await request.post('/api/v1/scenarios', { data: samples.find((s: any) => s.scenario_id === 'demo-normal-001') });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await expect(page.getByRole('button', { name: 'Generate plan', exact: true })).toBeEnabled();
+  await page.getByLabel('Planning policy', { exact: true }).selectOption('scenario_selected');
+  await page.getByRole('button', { name: 'Generate plan', exact: true }).click();
+  await expect(page.getByText('Plan generated and independently validated.')).toBeVisible({ timeout: 30_000 });
+  await page.getByRole('button', { name: 'Analyze fragility', exact: true }).click();
+  await expect(page.getByText('Computed fragility evidence', { exact: true })).toBeVisible({ timeout: 30_000 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: '../work/browser-mobile-audit.png', fullPage: true });
+  await page.getByRole('button', { name: 'Disruptions', exact: true }).click();
+  await page.getByRole('button', { name: 'Compare recovery options', exact: true }).click();
+  await expect(page.getByText('Computed recovery comparison', { exact: true })).toBeVisible({ timeout: 60_000 });
+  await expect(page.getByRole('alert')).toHaveCount(0);
+});
+
+test('operator can cancel an active inspection calculation', async ({ page, request }) => {
+  const samples = await (await request.get('/api/v1/demo-scenarios')).json();
+  await request.post('/api/v1/scenarios', { data: samples.find((s: any) => s.scenario_id === 'demo-normal-001') });
+  await page.goto('/');
+  await expect(page.getByRole('button', { name: 'Generate plan', exact: true })).toBeEnabled();
+  await page.getByRole('button', { name: 'Inspections', exact: true }).click();
+  await page.getByRole('button', { name: 'Rank inspections', exact: true }).click();
+  await page.getByRole('button', { name: 'Cancel operation', exact: true }).click();
+  await expect(page.getByRole('alert')).toContainText('cancelled');
+  await expect(page.getByRole('button', { name: 'Generate plan', exact: true })).toBeEnabled();
+  const state = await (await request.get('/api/v1/scenarios/demo-normal-001/state')).json();
+  expect(state.inspection_history).toHaveLength(0);
+  expect(state.state_revision).toBe(1);
+});
+
+test('redesigned overview, corridor controls and inventory search', async ({ page, request }) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  const samples = await (await request.get('/api/v1/demo-scenarios')).json();
+  await request.post('/api/v1/scenarios', { data: samples.find((s: any) => s.scenario_id === 'demo-normal-001') });
+  await page.setViewportSize({ width: 1440, height: 1160 });
+  await page.goto('/');
+  await expect(page.getByRole('button', { name: 'Generate plan', exact: true })).toBeEnabled();
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: '../work/ui-overview-empty.png', fullPage: true });
+  await page.getByRole('button', { name: 'Generate plan', exact: true }).click();
+  await expect(page.getByText('Plan generated and independently validated.')).toBeVisible({ timeout: 30_000 });
+  await page.getByRole('button', { name: 'Zoom in on network' }).click();
+  await expect(page.getByRole('button', { name: 'Zoom out on network' })).toBeEnabled();
+  await page.getByRole('button', { name: /Inspect corridor to/ }).first().click();
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Zoom out on network' })).toBeDisabled();
+  await page.mouse.move(0, 0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: '../work/ui-overview-desktop.png', fullPage: false });
+  await page.getByRole('button', { name: 'Inventory', exact: true }).click();
+  await page.getByLabel('Search batches').fill('B-TOM-01');
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await expect(page.locator('tbody')).toContainText('B-TOM-01');
+  await page.getByLabel('Search batches').fill('no-matching-batch');
+  await expect(page.getByText('No items to display', { exact: true })).toBeVisible();
+  await page.getByLabel('Search batches').fill('');
+  await expect(page.locator('tbody tr')).toHaveCount(6);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: '../work/ui-inventory-desktop.png', fullPage: true });
+  expect(errors).toEqual([]);
+});

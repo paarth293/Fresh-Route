@@ -1,0 +1,481 @@
+{
+  "schema_version": "1.0",
+  "scenario_id": "dev-fragile-002",
+  "name": "High Fragility Cold-Chain Stress",
+  "timezone": "Asia/Calcutta",
+  "start_at": "2026-10-15T06:00:00+05:30",
+  "decision_at_min": 0,
+  "evaluation_end_min": 720,
+  "quantity_unit": "kg",
+  "currency_minor_unit": "paise",
+  "provenance": "synthetic_dev",
+  "commodities": [
+    {
+      "id": "TOM",
+      "name": "Vine Tomatoes",
+      "quantity_unit": "kg",
+      "allowed_price_tier_ids": [
+        "tier_0",
+        "tier_10",
+        "tier_20"
+      ]
+    },
+    {
+      "id": "LGR",
+      "name": "Baby Spinach & Leafy Greens",
+      "quantity_unit": "kg",
+      "allowed_price_tier_ids": [
+        "tier_0",
+        "tier_10",
+        "tier_20"
+      ]
+    },
+    {
+      "id": "STR",
+      "name": "Mahabaleshwar Strawberries",
+      "quantity_unit": "kg",
+      "allowed_price_tier_ids": [
+        "tier_0",
+        "tier_10",
+        "tier_20"
+      ]
+    }
+  ],
+  "batches": [
+    {
+      "id": "B-TOM-01",
+      "commodity_id": "TOM",
+      "quantity_units": 90,
+      "observed_at_min": 0,
+      "remaining_life_nominal_min": 250,
+      "remaining_life_low_min": 160,
+      "remaining_life_high_min": 330,
+      "status": "available",
+      "inspection_cost_paise": 3500,
+      "inspection_duration_min": 15,
+      "inspectable": true
+    },
+    {
+      "id": "B-TOM-02",
+      "commodity_id": "TOM",
+      "quantity_units": 80,
+      "observed_at_min": 0,
+      "remaining_life_nominal_min": 550,
+      "remaining_life_low_min": 470,
+      "remaining_life_high_min": 630,
+      "status": "available",
+      "inspection_cost_paise": 3500,
+      "inspection_duration_min": 15,
+      "inspectable": true
+    },
+    {
+      "id": "B-LGR-01",
+      "commodity_id": "LGR",
+      "quantity_units": 75,
+      "observed_at_min": 0,
+      "remaining_life_nominal_min": 205,
+      "remaining_life_low_min": 125,
+      "remaining_life_high_min": 290,
+      "status": "available",
+      "inspection_cost_paise": 4000,
+      "inspection_duration_min": 15,
+      "inspectable": true
+    },
+    {
+      "id": "B-LGR-02",
+      "commodity_id": "LGR",
+      "quantity_units": 65,
+      "observed_at_min": 0,
+      "remaining_life_nominal_min": 410,
+      "remaining_life_low_min": 340,
+      "remaining_life_high_min": 490,
+      "status": "available",
+      "inspection_cost_paise": 4000,
+      "inspection_duration_min": 15,
+      "inspectable": true
+    },
+    {
+      "id": "B-STR-01",
+      "commodity_id": "STR",
+      "quantity_units": 70,
+      "observed_at_min": 0,
+      "remaining_life_nominal_min": 180,
+      "remaining_life_low_min": 105,
+      "remaining_life_high_min": 270,
+      "status": "available",
+      "inspection_cost_paise": 4500,
+      "inspection_duration_min": 15,
+      "inspectable": true
+    },
+    {
+      "id": "B-STR-02",
+      "commodity_id": "STR",
+      "quantity_units": 50,
+      "observed_at_min": 0,
+      "remaining_life_nominal_min": 450,
+      "remaining_life_low_min": 380,
+      "remaining_life_high_min": 540,
+      "status": "available",
+      "inspection_cost_paise": 4500,
+      "inspection_duration_min": 15,
+      "inspectable": true
+    }
+  ],
+  "destinations": [
+    {
+      "id": "D-METRO-NORTH",
+      "name": "Metro Hub North (Close Retail)",
+      "receiving_open_min": 30,
+      "receiving_close_min": 240,
+      "x_coord": 28.65,
+      "y_coord": 77.22,
+      "closed": false
+    },
+    {
+      "id": "D-MANDI-EAST",
+      "name": "Regional Wholesale Mandi East",
+      "receiving_open_min": 45,
+      "receiving_close_min": 330,
+      "x_coord": 28.61,
+      "y_coord": 77.38,
+      "closed": false
+    },
+    {
+      "id": "D-SUPER-SOUTH",
+      "name": "Supermarket Chain South",
+      "receiving_open_min": 60,
+      "receiving_close_min": 390,
+      "x_coord": 28.48,
+      "y_coord": 77.18,
+      "closed": false
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "V-TRUCK-01",
+      "name": "Reefer Van 01 (140 kg)",
+      "capacity_units": 140,
+      "available_from_min": 0,
+      "available_to_min": 660,
+      "current_location": "ORIGIN_DC",
+      "compatible_commodity_ids": [
+        "TOM",
+        "LGR",
+        "STR"
+      ],
+      "unavailable": false
+    },
+    {
+      "id": "V-TRUCK-02",
+      "name": "Reefer Van 02 (130 kg)",
+      "capacity_units": 130,
+      "available_from_min": 0,
+      "available_to_min": 660,
+      "current_location": "ORIGIN_DC",
+      "compatible_commodity_ids": [
+        "TOM",
+        "LGR",
+        "STR"
+      ],
+      "unavailable": false
+    },
+    {
+      "id": "V-TRUCK-03",
+      "name": "Ambient Carrier 03 (120 kg)",
+      "capacity_units": 120,
+      "available_from_min": 15,
+      "available_to_min": 660,
+      "current_location": "ORIGIN_DC",
+      "compatible_commodity_ids": [
+        "TOM",
+        "LGR"
+      ],
+      "unavailable": false
+    }
+  ],
+  "routes": [
+    {
+      "id": "R-NORTH",
+      "origin_id": "ORIGIN_DC",
+      "destination_id": "D-METRO-NORTH",
+      "outbound_travel_min": 50,
+      "return_travel_min": 35,
+      "loading_duration_min": 15,
+      "unloading_duration_min": 15,
+      "downstream_handling_duration_min": 15,
+      "turnaround_duration_min": 10,
+      "fixed_trip_cost_paise": 18000,
+      "variable_transport_cost_paise_per_unit": 40,
+      "variable_handling_cost_paise_per_unit": 100,
+      "observed_delay_min": 10
+    },
+    {
+      "id": "R-EAST",
+      "origin_id": "ORIGIN_DC",
+      "destination_id": "D-MANDI-EAST",
+      "outbound_travel_min": 75,
+      "return_travel_min": 55,
+      "loading_duration_min": 15,
+      "unloading_duration_min": 15,
+      "downstream_handling_duration_min": 15,
+      "turnaround_duration_min": 10,
+      "fixed_trip_cost_paise": 22000,
+      "variable_transport_cost_paise_per_unit": 55,
+      "variable_handling_cost_paise_per_unit": 100,
+      "observed_delay_min": 10
+    },
+    {
+      "id": "R-SOUTH",
+      "origin_id": "ORIGIN_DC",
+      "destination_id": "D-SUPER-SOUTH",
+      "outbound_travel_min": 105,
+      "return_travel_min": 80,
+      "loading_duration_min": 15,
+      "unloading_duration_min": 15,
+      "downstream_handling_duration_min": 15,
+      "turnaround_duration_min": 10,
+      "fixed_trip_cost_paise": 26000,
+      "variable_transport_cost_paise_per_unit": 70,
+      "variable_handling_cost_paise_per_unit": 100,
+      "observed_delay_min": 10
+    }
+  ],
+  "demand_buckets": [
+    {
+      "id": "DB-NORTH-TOM",
+      "destination_id": "D-METRO-NORTH",
+      "commodity_id": "TOM",
+      "sale_at_min": 180,
+      "accepted_quantity_cap": 100,
+      "freshness_buffer_min": 30,
+      "price_tiers": [
+        {
+          "tier_id": "tier_0",
+          "label": "Full Price",
+          "discount_pct": 0,
+          "price_paise_per_unit": 4000,
+          "forecast_sales_units": 60
+        },
+        {
+          "tier_id": "tier_10",
+          "label": "10% Discount",
+          "discount_pct": 10,
+          "price_paise_per_unit": 3600,
+          "forecast_sales_units": 75
+        },
+        {
+          "tier_id": "tier_20",
+          "label": "20% Discount",
+          "discount_pct": 20,
+          "price_paise_per_unit": 3200,
+          "forecast_sales_units": 88
+        }
+      ]
+    },
+    {
+      "id": "DB-NORTH-STR",
+      "destination_id": "D-METRO-NORTH",
+      "commodity_id": "STR",
+      "sale_at_min": 165,
+      "accepted_quantity_cap": 80,
+      "freshness_buffer_min": 30,
+      "price_tiers": [
+        {
+          "tier_id": "tier_0",
+          "label": "Full Price",
+          "discount_pct": 0,
+          "price_paise_per_unit": 9500,
+          "forecast_sales_units": 45
+        },
+        {
+          "tier_id": "tier_10",
+          "label": "10% Discount",
+          "discount_pct": 10,
+          "price_paise_per_unit": 8550,
+          "forecast_sales_units": 58
+        },
+        {
+          "tier_id": "tier_20",
+          "label": "20% Discount",
+          "discount_pct": 20,
+          "price_paise_per_unit": 7600,
+          "forecast_sales_units": 70
+        }
+      ]
+    },
+    {
+      "id": "DB-EAST-TOM",
+      "destination_id": "D-MANDI-EAST",
+      "commodity_id": "TOM",
+      "sale_at_min": 240,
+      "accepted_quantity_cap": 110,
+      "freshness_buffer_min": 30,
+      "price_tiers": [
+        {
+          "tier_id": "tier_0",
+          "label": "Full Price",
+          "discount_pct": 0,
+          "price_paise_per_unit": 3800,
+          "forecast_sales_units": 65
+        },
+        {
+          "tier_id": "tier_10",
+          "label": "10% Discount",
+          "discount_pct": 10,
+          "price_paise_per_unit": 3420,
+          "forecast_sales_units": 85
+        },
+        {
+          "tier_id": "tier_20",
+          "label": "20% Discount",
+          "discount_pct": 20,
+          "price_paise_per_unit": 3040,
+          "forecast_sales_units": 100
+        }
+      ]
+    },
+    {
+      "id": "DB-EAST-LGR",
+      "destination_id": "D-MANDI-EAST",
+      "commodity_id": "LGR",
+      "sale_at_min": 210,
+      "accepted_quantity_cap": 90,
+      "freshness_buffer_min": 30,
+      "price_tiers": [
+        {
+          "tier_id": "tier_0",
+          "label": "Full Price",
+          "discount_pct": 0,
+          "price_paise_per_unit": 5200,
+          "forecast_sales_units": 50
+        },
+        {
+          "tier_id": "tier_10",
+          "label": "10% Discount",
+          "discount_pct": 10,
+          "price_paise_per_unit": 4680,
+          "forecast_sales_units": 68
+        },
+        {
+          "tier_id": "tier_20",
+          "label": "20% Discount",
+          "discount_pct": 20,
+          "price_paise_per_unit": 4160,
+          "forecast_sales_units": 82
+        }
+      ]
+    },
+    {
+      "id": "DB-SOUTH-LGR",
+      "destination_id": "D-SUPER-SOUTH",
+      "commodity_id": "LGR",
+      "sale_at_min": 300,
+      "accepted_quantity_cap": 85,
+      "freshness_buffer_min": 30,
+      "price_tiers": [
+        {
+          "tier_id": "tier_0",
+          "label": "Full Price",
+          "discount_pct": 0,
+          "price_paise_per_unit": 5600,
+          "forecast_sales_units": 50
+        },
+        {
+          "tier_id": "tier_10",
+          "label": "10% Discount",
+          "discount_pct": 10,
+          "price_paise_per_unit": 5040,
+          "forecast_sales_units": 65
+        },
+        {
+          "tier_id": "tier_20",
+          "label": "20% Discount",
+          "discount_pct": 20,
+          "price_paise_per_unit": 4480,
+          "forecast_sales_units": 78
+        }
+      ]
+    },
+    {
+      "id": "DB-SOUTH-STR",
+      "destination_id": "D-SUPER-SOUTH",
+      "commodity_id": "STR",
+      "sale_at_min": 315,
+      "accepted_quantity_cap": 75,
+      "freshness_buffer_min": 30,
+      "price_tiers": [
+        {
+          "tier_id": "tier_0",
+          "label": "Full Price",
+          "discount_pct": 0,
+          "price_paise_per_unit": 10200,
+          "forecast_sales_units": 42
+        },
+        {
+          "tier_id": "tier_10",
+          "label": "10% Discount",
+          "discount_pct": 10,
+          "price_paise_per_unit": 9180,
+          "forecast_sales_units": 55
+        },
+        {
+          "tier_id": "tier_20",
+          "label": "20% Discount",
+          "discount_pct": 20,
+          "price_paise_per_unit": 8160,
+          "forecast_sales_units": 68
+        }
+      ]
+    }
+  ],
+  "cost_model": {
+    "included_categories": [
+      "fixed_trip_cost",
+      "variable_transport_cost",
+      "handling_cost",
+      "spoilage_disposal_cost",
+      "inspection_cost",
+      "cancellation_cost"
+    ],
+    "disposal_cost_paise_per_unit_by_commodity": {
+      "TOM": 200,
+      "LGR": 250,
+      "STR": 350
+    },
+    "default_disposal_cost_paise_per_unit": 200,
+    "handling_cost_paise_per_unit_by_commodity": {
+      "TOM": 100,
+      "LGR": 110,
+      "STR": 140
+    },
+    "default_handling_cost_paise_per_unit": 100,
+    "terminal_carryover_value_paise_per_unit": 0,
+    "cancellation_fee_paise_per_trip": 2500,
+    "organizer_baseline_enabled": true
+  },
+  "uncertainty_model": {
+    "departure_grid_min": 30,
+    "supplied_fixed_departures_min": [
+      15,
+      45,
+      75,
+      105
+    ],
+    "life_shock_min_range": [
+      -75,
+      45
+    ],
+    "travel_delay_min_range": [
+      0,
+      45
+    ],
+    "demand_shock_multiplier_range": [
+      0.8,
+      1.15
+    ],
+    "risk_lambda": 0.25,
+    "planning_world_count": 12,
+    "evaluation_world_count": 12
+  },
+  "commitments": []
+}

@@ -1,0 +1,8 @@
+{
+  "config_id": "nominal_v1",
+  "policy": "nominal_mip",
+  "risk_lambda": 0.0,
+  "departure_grid_min": 30,
+  "planning_world_count": 1,
+  "time_budget_seconds": 5
+}

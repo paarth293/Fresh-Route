@@ -1,0 +1,154 @@
+{
+  "schema_version": "1.0",
+  "scenario_id": "fixture-tiny-oracle",
+  "name": "Small Exhaustive Oracle Verification Fixture",
+  "timezone": "Asia/Calcutta",
+  "start_at": "2026-10-15T06:00:00+05:30",
+  "decision_at_min": 0,
+  "evaluation_end_min": 600,
+  "quantity_unit": "kg",
+  "currency_minor_unit": "paise",
+  "provenance": "oracle_fixture",
+  "commodities": [
+    {
+      "id": "TOM",
+      "name": "Tomatoes",
+      "quantity_unit": "kg",
+      "allowed_price_tier_ids": [
+        "tier_0",
+        "tier_10"
+      ]
+    }
+  ],
+  "batches": [
+    {
+      "id": "B1",
+      "commodity_id": "TOM",
+      "quantity_units": 50,
+      "observed_at_min": 0,
+      "remaining_life_nominal_min": 260,
+      "status": "available"
+    },
+    {
+      "id": "B2",
+      "commodity_id": "TOM",
+      "quantity_units": 40,
+      "observed_at_min": 0,
+      "remaining_life_nominal_min": 480,
+      "status": "available"
+    }
+  ],
+  "destinations": [
+    {
+      "id": "D1",
+      "name": "Near Market",
+      "receiving_open_min": 30,
+      "receiving_close_min": 210
+    },
+    {
+      "id": "D2",
+      "name": "Far Market",
+      "receiving_open_min": 60,
+      "receiving_close_min": 420
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "V1",
+      "name": "Van 1",
+      "capacity_units": 60,
+      "available_from_min": 0,
+      "available_to_min": 540
+    }
+  ],
+  "routes": [
+    {
+      "id": "R1",
+      "destination_id": "D1",
+      "outbound_travel_min": 30,
+      "return_travel_min": 30,
+      "loading_duration_min": 15,
+      "unloading_duration_min": 15,
+      "downstream_handling_duration_min": 15,
+      "turnaround_duration_min": 15,
+      "fixed_trip_cost_paise": 12000,
+      "variable_transport_cost_paise_per_unit": 0,
+      "variable_handling_cost_paise_per_unit": 100
+    },
+    {
+      "id": "R2",
+      "destination_id": "D2",
+      "outbound_travel_min": 60,
+      "return_travel_min": 60,
+      "loading_duration_min": 15,
+      "unloading_duration_min": 15,
+      "downstream_handling_duration_min": 15,
+      "turnaround_duration_min": 15,
+      "fixed_trip_cost_paise": 15000,
+      "variable_transport_cost_paise_per_unit": 0,
+      "variable_handling_cost_paise_per_unit": 100
+    }
+  ],
+  "demand_buckets": [
+    {
+      "id": "DB1",
+      "destination_id": "D1",
+      "commodity_id": "TOM",
+      "sale_at_min": 180,
+      "accepted_quantity_cap": 60,
+      "freshness_buffer_min": 30,
+      "price_tiers": [
+        {
+          "tier_id": "tier_0",
+          "label": "Full",
+          "discount_pct": 0,
+          "price_paise_per_unit": 4200,
+          "forecast_sales_units": 40
+        },
+        {
+          "tier_id": "tier_10",
+          "label": "10% Off",
+          "discount_pct": 10,
+          "price_paise_per_unit": 3780,
+          "forecast_sales_units": 55
+        }
+      ]
+    },
+    {
+      "id": "DB2",
+      "destination_id": "D2",
+      "commodity_id": "TOM",
+      "sale_at_min": 360,
+      "accepted_quantity_cap": 50,
+      "freshness_buffer_min": 30,
+      "price_tiers": [
+        {
+          "tier_id": "tier_0",
+          "label": "Full",
+          "discount_pct": 0,
+          "price_paise_per_unit": 4500,
+          "forecast_sales_units": 35
+        },
+        {
+          "tier_id": "tier_10",
+          "label": "10% Off",
+          "discount_pct": 10,
+          "price_paise_per_unit": 4050,
+          "forecast_sales_units": 45
+        }
+      ]
+    }
+  ],
+  "cost_model": {
+    "disposal_cost_paise_per_unit_by_commodity": {
+      "TOM": 200
+    },
+    "handling_cost_paise_per_unit_by_commodity": {
+      "TOM": 100
+    }
+  },
+  "uncertainty_model": {
+    "departure_grid_min": 120
+  },
+  "commitments": []
+}

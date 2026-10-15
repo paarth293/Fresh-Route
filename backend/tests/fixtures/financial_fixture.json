@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "scenario_id": "fixture-financial-12-2",
+  "name": "Section 12.2 Hand-Calculated Financial Fixture",
+  "timezone": "Asia/Calcutta",
+  "start_at": "2026-10-15T06:00:00+05:30",
+  "decision_at_min": 0,
+  "evaluation_end_min": 720,
+  "quantity_unit": "kg",
+  "currency_minor_unit": "paise",
+  "provenance": "hand_calculated_fixture",
+  "commodities": [
+    {
+      "id": "TOM",
+      "name": "Tomatoes",
+      "quantity_unit": "kg",
+      "allowed_price_tier_ids": [
+        "tier_0"
+      ]
+    }
+  ],
+  "batches": [
+    {
+      "id": "B-100",
+      "commodity_id": "TOM",
+      "quantity_units": 100,
+      "observed_at_min": 0,
+      "remaining_life_nominal_min": 500,
+      "remaining_life_low_min": 450,
+      "remaining_life_high_min": 550,
+      "status": "available",
+      "inspection_cost_paise": 0,
+      "inspection_duration_min": 15,
+      "inspectable": false
+    }
+  ],
+  "destinations": [
+    {
+      "id": "D-01",
+      "name": "Buyer D-01",
+      "receiving_open_min": 30,
+      "receiving_close_min": 360,
+      "closed": false
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "V-01",
+      "name": "Truck 01",
+      "capacity_units": 100,
+      "available_from_min": 0,
+      "available_to_min": 600
+    }
+  ],
+  "routes": [
+    {
+      "id": "R-01",
+      "origin_id": "ORIGIN_DC",
+      "destination_id": "D-01",
+      "outbound_travel_min": 45,
+      "return_travel_min": 45,
+      "loading_duration_min": 15,
+      "unloading_duration_min": 15,
+      "downstream_handling_duration_min": 15,
+      "turnaround_duration_min": 10,
+      "fixed_trip_cost_paise": 20000,
+      "variable_transport_cost_paise_per_unit": 0,
+      "variable_handling_cost_paise_per_unit": 100
+    }
+  ],
+  "demand_buckets": [
+    {
+      "id": "DB-01",
+      "destination_id": "D-01",
+      "commodity_id": "TOM",
+      "sale_at_min": 240,
+      "accepted_quantity_cap": 80,
+      "freshness_buffer_min": 30,
+      "price_tiers": [
+        {
+          "tier_id": "tier_0",
+          "label": "Full Price",
+          "discount_pct": 0,
+          "price_paise_per_unit": 4000,
+          "forecast_sales_units": 80
+        }
+      ]
+    }
+  ],
+  "cost_model": {
+    "disposal_cost_paise_per_unit_by_commodity": {
+      "TOM": 200
+    },
+    "default_disposal_cost_paise_per_unit": 200,
+    "handling_cost_paise_per_unit_by_commodity": {
+      "TOM": 100
+    },
+    "default_handling_cost_paise_per_unit": 100
+  },
+  "uncertainty_model": {
+    "departure_grid_min": 60
+  },
+  "commitments": []
+}

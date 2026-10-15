@@ -1,0 +1,8 @@
+{
+  "config_id": "balanced_v1",
+  "policy": "scenario_selected",
+  "risk_lambda": 0.25,
+  "departure_grid_min": 30,
+  "planning_world_count": 12,
+  "time_budget_seconds": 5
+}
