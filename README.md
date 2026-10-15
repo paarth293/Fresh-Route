@@ -2,6 +2,10 @@
 
 ![FreshRoute LastWindow cover](deliverables/project-gallery/01-lastwindow-cover.png)
 
+URL: https://lastwindow-production.up.railway.app
+Workspace password: Q4ZpnHHgSTfBHN95p7anPwPxW6TMrebx
+**make sure to use these to login to the project**
+
 **Plan, explain, and recover fresh-produce deliveries before their opportunity closes.**
 
 FreshRoute LastWindow is a software decision-support application for perishable produce distribution, built for PS03. It combines inventory, shelf-life estimates, receiving hours, demand, vehicle availability, and permitted price tiers into a proposed dispatch plan. Operators can inspect the reasoning, reserve resources, respond to delays, and compare simulated outcomes.
