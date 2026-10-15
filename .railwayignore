@@ -1,0 +1,17 @@
+.git/
+.venv/
+work/
+data/
+deliverables/
+reports/
+docs/
+frontend/node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+**/__pycache__/
+**/*.pyc
+**/*.sqlite3
+**/*.db
+.env
+.env.*
