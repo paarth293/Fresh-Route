@@ -1,0 +1,773 @@
+{
+  "title": "ScenarioPackage",
+  "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "title": "Schema Version",
+      "default": "1.0",
+      "type": "string"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "timezone": {
+      "title": "Timezone",
+      "default": "Asia/Calcutta",
+      "type": "string"
+    },
+    "start_at": {
+      "title": "Start At",
+      "default": "2026-10-15T06:00:00+05:30",
+      "type": "string"
+    },
+    "decision_at_min": {
+      "title": "Decision At Min",
+      "default": 0,
+      "type": "integer"
+    },
+    "evaluation_end_min": {
+      "title": "Evaluation End Min",
+      "default": 720,
+      "type": "integer"
+    },
+    "quantity_unit": {
+      "title": "Quantity Unit",
+      "default": "kg",
+      "type": "string"
+    },
+    "currency_minor_unit": {
+      "title": "Currency Minor Unit",
+      "default": "paise",
+      "type": "string"
+    },
+    "provenance": {
+      "title": "Provenance",
+      "default": "synthetic_demo",
+      "type": "string"
+    },
+    "commodities": {
+      "title": "Commodities",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Commodity"
+      }
+    },
+    "batches": {
+      "title": "Batches",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Batch"
+      }
+    },
+    "destinations": {
+      "title": "Destinations",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Destination"
+      }
+    },
+    "vehicles": {
+      "title": "Vehicles",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Vehicle"
+      }
+    },
+    "routes": {
+      "title": "Routes",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Route"
+      }
+    },
+    "demand_buckets": {
+      "title": "Demand Buckets",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DemandBucket"
+      }
+    },
+    "cost_model": {
+      "$ref": "#/definitions/CostModel"
+    },
+    "uncertainty_model": {
+      "$ref": "#/definitions/UncertaintyModel"
+    },
+    "commitments": {
+      "title": "Commitments",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Commitment"
+      }
+    }
+  },
+  "required": [
+    "scenario_id",
+    "name",
+    "commodities",
+    "batches",
+    "destinations",
+    "vehicles",
+    "routes",
+    "demand_buckets"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "Commodity": {
+      "title": "Commodity",
+      "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "quantity_unit": {
+          "title": "Quantity Unit",
+          "default": "kg",
+          "type": "string"
+        },
+        "allowed_price_tier_ids": {
+          "title": "Allowed Price Tier Ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "BatchStatus": {
+      "title": "BatchStatus",
+      "description": "An enumeration.",
+      "enum": [
+        "available",
+        "quarantined",
+        "committed",
+        "depleted"
+      ],
+      "type": "string"
+    },
+    "Batch": {
+      "title": "Batch",
+      "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "commodity_id": {
+          "title": "Commodity Id",
+          "type": "string"
+        },
+        "quantity_units": {
+          "title": "Quantity Units",
+          "type": "integer"
+        },
+        "observed_at_min": {
+          "title": "Observed At Min",
+          "default": 0,
+          "type": "integer"
+        },
+        "remaining_life_nominal_min": {
+          "title": "Remaining Life Nominal Min",
+          "type": "integer"
+        },
+        "remaining_life_low_min": {
+          "title": "Remaining Life Low Min",
+          "type": "integer"
+        },
+        "remaining_life_high_min": {
+          "title": "Remaining Life High Min",
+          "type": "integer"
+        },
+        "status": {
+          "default": "available",
+          "allOf": [
+            {
+              "$ref": "#/definitions/BatchStatus"
+            }
+          ]
+        },
+        "inspection_cost_paise": {
+          "title": "Inspection Cost Paise",
+          "default": 5000,
+          "type": "integer"
+        },
+        "inspection_duration_min": {
+          "title": "Inspection Duration Min",
+          "default": 15,
+          "type": "integer"
+        },
+        "inspectable": {
+          "title": "Inspectable",
+          "default": true,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "commodity_id",
+        "quantity_units",
+        "remaining_life_nominal_min"
+      ],
+      "additionalProperties": false
+    },
+    "Destination": {
+      "title": "Destination",
+      "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "receiving_open_min": {
+          "title": "Receiving Open Min",
+          "type": "integer"
+        },
+        "receiving_close_min": {
+          "title": "Receiving Close Min",
+          "type": "integer"
+        },
+        "x_coord": {
+          "title": "X Coord",
+          "default": 0.0,
+          "type": "number"
+        },
+        "y_coord": {
+          "title": "Y Coord",
+          "default": 0.0,
+          "type": "number"
+        },
+        "closed": {
+          "title": "Closed",
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "receiving_open_min",
+        "receiving_close_min"
+      ],
+      "additionalProperties": false
+    },
+    "Vehicle": {
+      "title": "Vehicle",
+      "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "default": "",
+          "type": "string"
+        },
+        "capacity_units": {
+          "title": "Capacity Units",
+          "type": "integer"
+        },
+        "available_from_min": {
+          "title": "Available From Min",
+          "default": 0,
+          "type": "integer"
+        },
+        "available_to_min": {
+          "title": "Available To Min",
+          "default": 720,
+          "type": "integer"
+        },
+        "current_location": {
+          "title": "Current Location",
+          "default": "ORIGIN_DC",
+          "type": "string"
+        },
+        "compatible_commodity_ids": {
+          "title": "Compatible Commodity Ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unavailable": {
+          "title": "Unavailable",
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "capacity_units"
+      ],
+      "additionalProperties": false
+    },
+    "Route": {
+      "title": "Route",
+      "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "origin_id": {
+          "title": "Origin Id",
+          "default": "ORIGIN_DC",
+          "type": "string"
+        },
+        "destination_id": {
+          "title": "Destination Id",
+          "type": "string"
+        },
+        "outbound_travel_min": {
+          "title": "Outbound Travel Min",
+          "type": "integer"
+        },
+        "return_travel_min": {
+          "title": "Return Travel Min",
+          "type": "integer"
+        },
+        "loading_duration_min": {
+          "title": "Loading Duration Min",
+          "default": 15,
+          "type": "integer"
+        },
+        "unloading_duration_min": {
+          "title": "Unloading Duration Min",
+          "default": 15,
+          "type": "integer"
+        },
+        "downstream_handling_duration_min": {
+          "title": "Downstream Handling Duration Min",
+          "default": 15,
+          "type": "integer"
+        },
+        "turnaround_duration_min": {
+          "title": "Turnaround Duration Min",
+          "default": 10,
+          "type": "integer"
+        },
+        "fixed_trip_cost_paise": {
+          "title": "Fixed Trip Cost Paise",
+          "type": "integer"
+        },
+        "variable_transport_cost_paise_per_unit": {
+          "title": "Variable Transport Cost Paise Per Unit",
+          "default": 0,
+          "type": "integer"
+        },
+        "variable_handling_cost_paise_per_unit": {
+          "title": "Variable Handling Cost Paise Per Unit",
+          "default": 100,
+          "type": "integer"
+        },
+        "observed_delay_min": {
+          "title": "Observed Delay Min",
+          "default": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "destination_id",
+        "outbound_travel_min",
+        "return_travel_min",
+        "fixed_trip_cost_paise"
+      ],
+      "additionalProperties": false
+    },
+    "PriceTierSpec": {
+      "title": "PriceTierSpec",
+      "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+      "type": "object",
+      "properties": {
+        "tier_id": {
+          "title": "Tier Id",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "discount_pct": {
+          "title": "Discount Pct",
+          "type": "integer"
+        },
+        "price_paise_per_unit": {
+          "title": "Price Paise Per Unit",
+          "type": "integer"
+        },
+        "forecast_sales_units": {
+          "title": "Forecast Sales Units",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tier_id",
+        "label",
+        "discount_pct",
+        "price_paise_per_unit",
+        "forecast_sales_units"
+      ],
+      "additionalProperties": false
+    },
+    "DemandBucket": {
+      "title": "DemandBucket",
+      "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "destination_id": {
+          "title": "Destination Id",
+          "type": "string"
+        },
+        "commodity_id": {
+          "title": "Commodity Id",
+          "type": "string"
+        },
+        "sale_at_min": {
+          "title": "Sale At Min",
+          "type": "integer"
+        },
+        "accepted_quantity_cap": {
+          "title": "Accepted Quantity Cap",
+          "type": "integer"
+        },
+        "freshness_buffer_min": {
+          "title": "Freshness Buffer Min",
+          "default": 30,
+          "type": "integer"
+        },
+        "price_tiers": {
+          "title": "Price Tiers",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PriceTierSpec"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "destination_id",
+        "commodity_id",
+        "sale_at_min",
+        "accepted_quantity_cap",
+        "price_tiers"
+      ],
+      "additionalProperties": false
+    },
+    "CostModel": {
+      "title": "CostModel",
+      "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+      "type": "object",
+      "properties": {
+        "included_categories": {
+          "title": "Included Categories",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "disposal_cost_paise_per_unit_by_commodity": {
+          "title": "Disposal Cost Paise Per Unit By Commodity",
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+        "default_disposal_cost_paise_per_unit": {
+          "title": "Default Disposal Cost Paise Per Unit",
+          "default": 200,
+          "type": "integer"
+        },
+        "handling_cost_paise_per_unit_by_commodity": {
+          "title": "Handling Cost Paise Per Unit By Commodity",
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+        "default_handling_cost_paise_per_unit": {
+          "title": "Default Handling Cost Paise Per Unit",
+          "default": 100,
+          "type": "integer"
+        },
+        "terminal_carryover_value_paise_per_unit": {
+          "title": "Terminal Carryover Value Paise Per Unit",
+          "default": 0,
+          "type": "integer"
+        },
+        "cancellation_fee_paise_per_trip": {
+          "title": "Cancellation Fee Paise Per Trip",
+          "default": 2500,
+          "type": "integer"
+        },
+        "organizer_baseline_enabled": {
+          "title": "Organizer Baseline Enabled",
+          "default": true,
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ConfusionMatrixSpec": {
+      "title": "ConfusionMatrixSpec",
+      "description": "Observation model P(observed_band | true_band) where rows sum to 1.0.",
+      "type": "object",
+      "properties": {
+        "bands": {
+          "title": "Bands",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "matrix": {
+          "title": "Matrix",
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "UncertaintyModel": {
+      "title": "UncertaintyModel",
+      "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+      "type": "object",
+      "properties": {
+        "departure_grid_min": {
+          "title": "Departure Grid Min",
+          "default": 15,
+          "type": "integer"
+        },
+        "supplied_fixed_departures_min": {
+          "title": "Supplied Fixed Departures Min",
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "life_shock_min_range": {
+          "title": "Life Shock Min Range",
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "travel_delay_min_range": {
+          "title": "Travel Delay Min Range",
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "demand_shock_multiplier_range": {
+          "title": "Demand Shock Multiplier Range",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "risk_lambda": {
+          "title": "Risk Lambda",
+          "default": 0.25,
+          "type": "number"
+        },
+        "planning_world_count": {
+          "title": "Planning World Count",
+          "default": 20,
+          "type": "integer"
+        },
+        "evaluation_world_count": {
+          "title": "Evaluation World Count",
+          "default": 20,
+          "type": "integer"
+        },
+        "observation_model": {
+          "$ref": "#/definitions/ConfusionMatrixSpec"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CommitmentState": {
+      "title": "CommitmentState",
+      "description": "An enumeration.",
+      "enum": [
+        "proposed",
+        "reserved",
+        "loading",
+        "dispatched",
+        "delivered",
+        "closed"
+      ],
+      "type": "string"
+    },
+    "CommittedAllocation": {
+      "title": "CommittedAllocation",
+      "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+      "type": "object",
+      "properties": {
+        "batch_id": {
+          "title": "Batch Id",
+          "type": "string"
+        },
+        "commodity_id": {
+          "title": "Commodity Id",
+          "type": "string"
+        },
+        "destination_id": {
+          "title": "Destination Id",
+          "type": "string"
+        },
+        "tier_id": {
+          "title": "Tier Id",
+          "type": "string"
+        },
+        "quantity_units": {
+          "title": "Quantity Units",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "batch_id",
+        "commodity_id",
+        "destination_id",
+        "tier_id",
+        "quantity_units"
+      ],
+      "additionalProperties": false
+    },
+    "Commitment": {
+      "title": "Commitment",
+      "description": "Base model that strictly forbids extra or hidden simulation truth fields.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "plan_id": {
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "trip_id": {
+          "title": "Trip Id",
+          "type": "string"
+        },
+        "vehicle_id": {
+          "title": "Vehicle Id",
+          "type": "string"
+        },
+        "route_id": {
+          "title": "Route Id",
+          "type": "string"
+        },
+        "destination_id": {
+          "title": "Destination Id",
+          "type": "string"
+        },
+        "departure_min": {
+          "title": "Departure Min",
+          "type": "integer"
+        },
+        "loading_start_min": {
+          "title": "Loading Start Min",
+          "type": "integer"
+        },
+        "arrival_min": {
+          "title": "Arrival Min",
+          "type": "integer"
+        },
+        "unloading_end_min": {
+          "title": "Unloading End Min",
+          "type": "integer"
+        },
+        "ready_for_sale_min": {
+          "title": "Ready For Sale Min",
+          "type": "integer"
+        },
+        "vehicle_release_min": {
+          "title": "Vehicle Release Min",
+          "type": "integer"
+        },
+        "state": {
+          "default": "reserved",
+          "allOf": [
+            {
+              "$ref": "#/definitions/CommitmentState"
+            }
+          ]
+        },
+        "allocations": {
+          "title": "Allocations",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommittedAllocation"
+          }
+        },
+        "effective_at_min": {
+          "title": "Effective At Min",
+          "default": 0,
+          "type": "integer"
+        },
+        "incurred_fixed_cost_paise": {
+          "title": "Incurred Fixed Cost Paise",
+          "default": 0,
+          "type": "integer"
+        },
+        "incurred_variable_cost_paise": {
+          "title": "Incurred Variable Cost Paise",
+          "default": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "plan_id",
+        "trip_id",
+        "vehicle_id",
+        "route_id",
+        "destination_id",
+        "departure_min",
+        "loading_start_min",
+        "arrival_min",
+        "unloading_end_min",
+        "ready_for_sale_min",
+        "vehicle_release_min"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

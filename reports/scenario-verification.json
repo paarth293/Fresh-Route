@@ -1,0 +1,58 @@
+[
+  {
+    "file": "scenarios\\demo\\demo-delay-003.json",
+    "passed": true,
+    "solver_status": "OPTIMAL",
+    "trips": 3,
+    "net_paise": 1760375
+  },
+  {
+    "file": "scenarios\\demo\\demo-normal-001.json",
+    "passed": true,
+    "solver_status": "OPTIMAL",
+    "trips": 4,
+    "net_paise": 2031770
+  },
+  {
+    "file": "scenarios\\demo\\demo-shortage-002.json",
+    "passed": true,
+    "solver_status": "OPTIMAL",
+    "trips": 3,
+    "net_paise": 1572540
+  },
+  {
+    "file": "scenarios\\development\\dev-fragile-002.json",
+    "passed": true,
+    "solver_status": "OPTIMAL",
+    "trips": 3,
+    "net_paise": 1261495
+  },
+  {
+    "file": "scenarios\\development\\dev-surplus-001.json",
+    "passed": true,
+    "solver_status": "OPTIMAL",
+    "trips": 4,
+    "net_paise": 1868845
+  },
+  {
+    "file": "scenarios\\test\\test-heldout-001.json",
+    "passed": true,
+    "solver_status": "OPTIMAL",
+    "trips": 3,
+    "net_paise": 1772050
+  },
+  {
+    "file": "scenarios\\test\\test-heldout-002.json",
+    "passed": true,
+    "solver_status": "OPTIMAL",
+    "trips": 4,
+    "net_paise": 1930460
+  },
+  {
+    "file": "scenarios\\validation\\val-suite-001.json",
+    "passed": true,
+    "solver_status": "OPTIMAL",
+    "trips": 4,
+    "net_paise": 2091340
+  }
+]

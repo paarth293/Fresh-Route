@@ -1,0 +1,16 @@
+{
+  "duration_seconds": 180.0,
+  "frames": 5400,
+  "resolution": "1920x1080",
+  "fps": 30,
+  "video_codec": "H.264",
+  "audio_codec": "AAC",
+  "full_decode": "passed",
+  "mean_audio_db": -19.5,
+  "peak_audio_db": -4.2,
+  "caption_cues": 74,
+  "captions_in_range_and_nonoverlapping": true,
+  "file_bytes": 7864894,
+  "narration": "Offline Windows Microsoft Zira Desktop",
+  "visual_review": "See work/video/review/final-contact-sheet.png"
+}

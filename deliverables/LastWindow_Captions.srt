@@ -1,0 +1,295 @@
+1
+00:00:00,283 --> 00:00:02,340
+Fresh produce has a deadline.
+
+2
+00:00:02,350 --> 00:00:03,748
+One late route can turn a valuable
+
+3
+00:00:03,758 --> 00:00:05,348
+batch into waste.
+
+4
+00:00:05,358 --> 00:00:07,807
+FreshRoute LastWindow helps distributors make the next
+
+5
+00:00:07,817 --> 00:00:09,250
+decision before that window closes.
+
+6
+00:00:11,283 --> 00:00:12,878
+Our problem is not simply finding the
+
+7
+00:00:12,888 --> 00:00:14,232
+shortest route.
+
+8
+00:00:14,242 --> 00:00:17,151
+Dispatchers must coordinate shelf life, receiving hours,
+
+9
+00:00:17,161 --> 00:00:20,973
+vehicle capacity, demand, permitted discounts, and costs.
+
+10
+00:00:20,983 --> 00:00:23,855
+LastWindow brings these constraints into one workspace,
+
+11
+00:00:23,865 --> 00:00:26,003
+so operational decisions can be examined together.
+
+12
+00:00:27,283 --> 00:00:29,584
+Here is the working product: six batches,
+
+13
+00:00:29,594 --> 00:00:32,127
+three vehicles, and three destinations.
+
+14
+00:00:32,137 --> 00:00:34,290
+Generate Plan turns available inventory into a
+
+15
+00:00:34,300 --> 00:00:36,267
+proposed dispatch schedule.
+
+16
+00:00:36,277 --> 00:00:38,587
+The dashboard connects the route network, shelf-life
+
+17
+00:00:38,597 --> 00:00:42,516
+watchlist, forecast contribution, and independent validation.
+
+18
+00:00:42,526 --> 00:00:44,126
+Every number comes from the scenario and
+
+19
+00:00:44,136 --> 00:00:45,015
+its generated plan.
+
+20
+00:00:46,282 --> 00:00:49,746
+Underneath, an OR-Tools mixed-integer model chooses quantities,
+
+21
+00:00:49,756 --> 00:00:52,995
+routes, departure times, vehicles, and allowed price
+
+22
+00:00:53,005 --> 00:00:54,108
+tiers.
+
+23
+00:00:54,118 --> 00:00:56,924
+It accounts for capacity, receiving windows, freshness,
+
+24
+00:00:56,934 --> 00:00:58,242
+and costs.
+
+25
+00:00:58,252 --> 00:01:00,112
+A separate validator checks the result before
+
+26
+00:01:00,122 --> 00:01:01,286
+commitment.
+
+27
+00:01:01,296 --> 00:01:03,345
+Optimality is claimed only within the generated
+
+28
+00:01:03,355 --> 00:01:04,095
+candidate set.
+
+29
+00:01:05,283 --> 00:01:07,196
+Our key idea is the last window:
+
+30
+00:01:07,206 --> 00:01:09,023
+the latest feasible departure before a batch
+
+31
+00:01:09,033 --> 00:01:10,776
+loses its opportunity.
+
+32
+00:01:10,786 --> 00:01:12,438
+Dispatch slack shows how much room is
+
+33
+00:01:12,448 --> 00:01:13,486
+left.
+
+34
+00:01:13,496 --> 00:01:16,130
+A decision receipt explains each batch's allocations,
+
+35
+00:01:16,140 --> 00:01:19,147
+constraints, and price-tier comparisons, so the operator
+
+36
+00:01:19,157 --> 00:01:21,360
+can understand the recommendation instead of following
+
+37
+00:01:21,370 --> 00:01:21,987
+a black box.
+
+38
+00:01:23,283 --> 00:01:25,844
+Now a working workflow: reserve the plan,
+
+39
+00:01:25,854 --> 00:01:28,111
+then record a twenty-minute route delay.
+
+40
+00:01:28,121 --> 00:01:30,448
+Existing stock and vehicles remain locked, and
+
+41
+00:01:30,458 --> 00:01:32,828
+conflicting reservations are flagged.
+
+42
+00:01:32,838 --> 00:01:34,198
+An unstarted trip can move to a
+
+43
+00:01:34,208 --> 00:01:36,340
+feasible later slot, or be released for
+
+44
+00:01:36,350 --> 00:01:38,086
+its cancellation fee.
+
+45
+00:01:38,096 --> 00:01:41,027
+Replanning uses the recovered availability, while historical
+
+46
+00:01:41,038 --> 00:01:42,546
+plans retain their original snapshots.
+
+47
+00:01:44,283 --> 00:01:47,173
+LastWindow also compares bounded policy candidates across
+
+48
+00:01:47,183 --> 00:01:50,957
+sampled travel, shelf-life, and demand conditions.
+
+49
+00:01:50,967 --> 00:01:52,982
+It can rank batches by estimated inspection
+
+50
+00:01:52,992 --> 00:01:54,094
+value.
+
+51
+00:01:54,104 --> 00:01:56,898
+Simulating an inspection consumes time, records its
+
+52
+00:01:56,908 --> 00:01:59,544
+cost, updates the estimate, and preserves the
+
+53
+00:01:59,554 --> 00:02:00,907
+observation.
+
+54
+00:02:00,917 --> 00:02:02,715
+Inspect only when the information is worth
+
+55
+00:02:02,725 --> 00:02:03,683
+its operational cost.
+
+56
+00:02:05,283 --> 00:02:07,465
+The evaluation view replays stored plans under
+
+57
+00:02:07,475 --> 00:02:09,536
+seeded simulation worlds.
+
+58
+00:02:09,546 --> 00:02:14,690
+We compare illustrative first-in-first-out, earliest-expiry-first, nominal optimization,
+
+59
+00:02:14,700 --> 00:02:17,811
+and uncertainty-aware selection under shared conditions.
+
+60
+00:02:17,821 --> 00:02:20,940
+Sales, spoilage, carryover, service failures, and net
+
+61
+00:02:20,950 --> 00:02:23,332
+contribution are reported separately.
+
+62
+00:02:23,342 --> 00:02:25,704
+These are synthetic results, not field measurements.
+
+63
+00:02:27,283 --> 00:02:29,982
+React and TypeScript power the interface.
+
+64
+00:02:29,992 --> 00:02:33,744
+FastAPI, OR-Tools with SCIP, and SQLite support
+
+65
+00:02:33,754 --> 00:02:35,961
+planning and saved snapshots.
+
+66
+00:02:35,971 --> 00:02:38,573
+The build includes cancellable jobs, revision checks,
+
+67
+00:02:38,583 --> 00:02:40,732
+and optional password access.
+
+68
+00:02:40,742 --> 00:02:44,102
+Seventy-three backend tests, nine frontend tests, and
+
+69
+00:02:44,112 --> 00:02:45,696
+seven browser workflows have passed.
+
+70
+00:02:47,283 --> 00:02:50,665
+LastWindow makes perishable distribution explainable, time-aware, and
+
+71
+00:02:50,675 --> 00:02:51,952
+recoverable.
+
+72
+00:02:51,962 --> 00:02:53,211
+The next step is a pilot with
+
+73
+00:02:53,221 --> 00:02:54,986
+real operational data.
+
+74
+00:02:54,996 --> 00:02:57,333
+Better decisions, before freshness runs out.

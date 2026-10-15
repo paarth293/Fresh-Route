@@ -1,0 +1,17 @@
+test_async_job_returns_immediately_and_persists_real_plan (test_hardening.TestHardening.test_async_job_returns_immediately_and_persists_real_plan) ... ok
+test_cancelled_job_cannot_restart (test_hardening.TestHardening.test_cancelled_job_cannot_restart) ... ok
+test_cross_origin_writes_blocked_even_without_login (test_hardening.TestHardening.test_cross_origin_writes_blocked_even_without_login) ... ok
+test_invalid_input_shapes_and_probability_models_are_rejected (test_hardening.TestHardening.test_invalid_input_shapes_and_probability_models_are_rejected) ... ok
+test_login_rate_limit_and_short_password_rejected (test_hardening.TestHardening.test_login_rate_limit_and_short_password_rejected) ... ok
+test_orphan_worker_exits_without_executing_queued_job (test_hardening.TestHardening.test_orphan_worker_exits_without_executing_queued_job) ... ok
+test_password_sessions_protect_api_and_logout_revokes_cookie (test_hardening.TestHardening.test_password_sessions_protect_api_and_logout_revokes_cookie) ... ok
+test_queue_serializes_work_and_health_remains_responsive (test_hardening.TestHardening.test_queue_serializes_work_and_health_remains_responsive) ... ok
+test_queued_work_is_resumed_on_application_startup (test_hardening.TestHardening.test_queued_work_is_resumed_on_application_startup) ... ok
+test_reservation_conflict_can_be_repaired_without_moving_locked_stock (test_hardening.TestHardening.test_reservation_conflict_can_be_repaired_without_moving_locked_stock) ... ok
+test_reservation_move_preserves_stock_and_is_idempotent (test_hardening.TestHardening.test_reservation_move_preserves_stock_and_is_idempotent) ... ok
+test_running_cancellation_terminates_child_and_preserves_ledger (test_hardening.TestHardening.test_running_cancellation_terminates_child_and_preserves_ledger) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 15.834s
+
+OK

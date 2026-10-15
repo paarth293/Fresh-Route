@@ -1,0 +1,23 @@
+{
+  "manifest_id": "manifest_09aa44f5d2",
+  "code_version": "1.0.0",
+  "metric_definition_version": "ps03_v1.0",
+  "config_id": "balanced_v1",
+  "base_seed": 2026,
+  "scenario_count": 2,
+  "world_count_per_scenario": 2,
+  "total_replay_runs_per_policy": 4,
+  "scenario_hashes": {
+    "test-heldout-001": "1c1cdcc6b5576199",
+    "test-heldout-002": "42f292944379be52"
+  },
+  "solver_backend": "OR-Tools SCIP",
+  "departure_grid_min": 30,
+  "hardware_platform": "Windows-10-10.0.26300-SP0",
+  "python_version": "3.11.9",
+  "started_at": "2026-10-15T15:44:30.756470+00:00",
+  "finished_at": "2026-10-15T15:45:09.880981+00:00",
+  "total_elapsed_ms": 39195.82,
+  "partition": "test",
+  "evidence_scope": "Synthetic fixtures; test partition has been inspected during development and is no longer an unseen holdout."
+}

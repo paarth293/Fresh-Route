@@ -1,0 +1,9 @@
+{
+  "requests": 100,
+  "concurrency": 8,
+  "failures": 0,
+  "median_ms": 68.2,
+  "p95_ms": 93.65,
+  "maximum_ms": 130.11,
+  "scope": "Local responsiveness smoke check during a real inspection-ranking job; not a production capacity or SLA claim."
+}

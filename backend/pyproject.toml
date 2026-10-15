@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "freshroute-lastwindow"
+version = "1.0.0"
+description = "FreshRoute: LastWindow — Intelligent Decision Support for Perishable Produce Distribution (PS 03)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi==0.92.0",
+    "pydantic==1.10.4",
+    "ortools==9.14.6206",
+    "numpy==2.1.3",
+    "scipy==1.15.2",
+    "uvicorn==0.17.6",
+    "httpx==0.23.3",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

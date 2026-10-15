@@ -1,0 +1,111 @@
+test_full_operator_lifecycle_via_api (integration.test_api_and_persistence.TestFastAPIEndpoints.test_full_operator_lifecycle_via_api) ... ok
+test_version_identity_historical_receipts_and_idempotency_conflicts (integration.test_api_and_persistence.TestFastAPIEndpoints.test_version_identity_historical_receipts_and_idempotency_conflicts)
+P0 Audit: Old plan cannot commit after scenario replacement at rev 1; historical receipts stay immutable; conflicting idempotency reuse returns 409. ... ok
+test_completed_job_cannot_be_cancelled (integration.test_audit_regressions.TestAuditRegressions.test_completed_job_cannot_be_cancelled) ... ok
+test_config_path_traversal_rejected (integration.test_audit_regressions.TestAuditRegressions.test_config_path_traversal_rejected) ... ok
+test_delivery_moves_stock_and_keeps_vehicle_locked_until_return (integration.test_audit_regressions.TestAuditRegressions.test_delivery_moves_stock_and_keeps_vehicle_locked_until_return) ... ok
+test_demo_and_validation_endpoints (integration.test_audit_regressions.TestAuditRegressions.test_demo_and_validation_endpoints) ... ok
+test_initial_multibatch_commitment_cost_counted_once (integration.test_audit_regressions.TestAuditRegressions.test_initial_multibatch_commitment_cost_counted_once) ... ok
+test_inspection_persists_history_cost_and_is_idempotent (integration.test_audit_regressions.TestAuditRegressions.test_inspection_persists_history_cost_and_is_idempotent) ... ok
+test_invalid_numeric_request_fields_are_client_errors (integration.test_audit_regressions.TestAuditRegressions.test_invalid_numeric_request_fields_are_client_errors) ... ok
+test_invalid_scenario_settings_and_oversubscribed_commitments_rejected (integration.test_audit_regressions.TestAuditRegressions.test_invalid_scenario_settings_and_oversubscribed_commitments_rejected) ... ok
+test_json_arrays_and_malformed_requests_are_client_errors (integration.test_audit_regressions.TestAuditRegressions.test_json_arrays_and_malformed_requests_are_client_errors) ... ok
+test_reimport_creates_new_version_and_rejects_old_commit (integration.test_audit_regressions.TestAuditRegressions.test_reimport_creates_new_version_and_rejects_old_commit) ... ok
+test_replan_distinguishes_existing_conflicts_from_new_allocations (integration.test_audit_regressions.TestAuditRegressions.test_replan_distinguishes_existing_conflicts_from_new_allocations) ... ok
+test_replay_is_immutable_after_scenario_changes (integration.test_audit_regressions.TestAuditRegressions.test_replay_is_immutable_after_scenario_changes) ... ok
+test_status_only_batch_update_preserves_absolute_expiry (integration.test_audit_regressions.TestAuditRegressions.test_status_only_batch_update_preserves_absolute_expiry) ... ok
+test_unknown_event_target_and_negative_delay_rejected (integration.test_audit_regressions.TestAuditRegressions.test_unknown_event_target_and_negative_delay_rejected) ... ok
+test_async_job_returns_immediately_and_persists_real_plan (integration.test_hardening.TestHardening.test_async_job_returns_immediately_and_persists_real_plan) ... ok
+test_cancelled_job_cannot_restart (integration.test_hardening.TestHardening.test_cancelled_job_cannot_restart) ... ok
+test_cross_origin_writes_blocked_even_without_login (integration.test_hardening.TestHardening.test_cross_origin_writes_blocked_even_without_login) ... ok
+test_invalid_input_shapes_and_probability_models_are_rejected (integration.test_hardening.TestHardening.test_invalid_input_shapes_and_probability_models_are_rejected) ... ok
+test_login_rate_limit_and_short_password_rejected (integration.test_hardening.TestHardening.test_login_rate_limit_and_short_password_rejected) ... ok
+test_orphan_worker_exits_without_executing_queued_job (integration.test_hardening.TestHardening.test_orphan_worker_exits_without_executing_queued_job) ... ok
+test_password_sessions_protect_api_and_logout_revokes_cookie (integration.test_hardening.TestHardening.test_password_sessions_protect_api_and_logout_revokes_cookie) ... ok
+test_queue_serializes_work_and_health_remains_responsive (integration.test_hardening.TestHardening.test_queue_serializes_work_and_health_remains_responsive) ... ok
+test_queued_work_is_resumed_on_application_startup (integration.test_hardening.TestHardening.test_queued_work_is_resumed_on_application_startup) ... ok
+test_reservation_conflict_can_be_repaired_without_moving_locked_stock (integration.test_hardening.TestHardening.test_reservation_conflict_can_be_repaired_without_moving_locked_stock) ... ok
+test_reservation_move_preserves_stock_and_is_idempotent (integration.test_hardening.TestHardening.test_reservation_move_preserves_stock_and_is_idempotent) ... ok
+test_running_cancellation_terminates_child_and_preserves_ledger (integration.test_hardening.TestHardening.test_running_cancellation_terminates_child_and_preserves_ledger) ... ok
+test_T01_no_inventory (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T01_no_inventory)
+T01: No inventory -> Valid empty plan; zero sales; demand remains unmet. ... ok
+test_T02_zero_demand_at_all_tiers (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T02_zero_demand_at_all_tiers)
+T02: Zero demand at all tiers -> No unjustified shipment or revenue. ... ok
+test_T03_batch_already_expired (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T03_batch_already_expired)
+T03: Batch already expired -> No allocation. ... ok
+test_T04_batch_expires_exactly_at_sale_time (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T04_batch_expires_exactly_at_sale_time)
+T04: Batch expires exactly at sale time + freshness buffer -> Ineligible under strict expiry convention. ... ok
+test_T05_vehicle_load_exceeds_capacity_by_one_unit (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T05_vehicle_load_exceeds_capacity_by_one_unit)
+T05: Vehicle load exceeds capacity by one unit -> Independent validator rejects. ... ok
+test_T06_trips_overlap_during_loading_or_return (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T06_trips_overlap_during_loading_or_return)
+T06: Trips overlap during loading/return -> Reject even if outbound travel does not overlap. ... ok
+test_T07_arrival_before_receiving_opens (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T07_arrival_before_receiving_opens)
+T07: Arrival before receiving opens -> Waiting is applied; later readiness is respected. ... ok
+test_T08_unloading_ends_after_closing (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T08_unloading_ends_after_closing)
+T08: Unloading ends after closing -> Candidate excluded. ... ok
+test_T09_lower_price_with_no_demand_uplift (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T09_lower_price_with_no_demand_uplift)
+T09: Lower price with no demand uplift -> No fabricated volume benefit; full price selected. ... ok
+test_T10_demand_uplift_exceeds_acceptance_cap (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T10_demand_uplift_exceeds_acceptance_cap)
+T10: Demand uplift exceeds acceptance cap -> Input rejected during validation. ... ok
+test_T11_replan_after_dispatch_locks_stock_and_vehicle (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T11_replan_after_dispatch_locks_stock_and_vehicle)
+T11: Replan after dispatch -> Stock and vehicle stay locked. ... ok
+test_T12_same_event_submitted_twice_idempotent (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T12_same_event_submitted_twice_idempotent)
+T12: Same event submitted twice -> No duplicate movement/cost. ... ok
+test_T13_worker_stops_mid_job_interrupted (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T13_worker_stops_mid_job_interrupted)
+T13: Worker stops mid-job -> Job becomes interrupted; no partial commitment. ... ok
+test_T14_solve_ends_with_valid_incumbent (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T14_solve_ends_with_valid_incumbent)
+T14: Solve ends with valid incumbent -> Feasible result shown without optimality claim. ... ok
+test_T15_solve_ends_with_no_incumbent (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T15_solve_ends_with_no_incumbent)
+T15: Solve ends with no incumbent -> No-solution-within-budget status; validated baseline fallback works. ... ok
+test_T16_all_allowed_shipments_lose_money (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T16_all_allowed_shipments_lose_money)
+T16: All allowed shipments lose money -> Empty dispatch is optimal absent minimum-service obligations. ... ok
+test_T17_inspecting_takes_longer_than_remaining_opportunity (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T17_inspecting_takes_longer_than_remaining_opportunity)
+T17: Inspecting takes longer than remaining opportunity -> Nonpositive value / not worthwhile. ... ok
+test_T18_inspection_does_not_affect_decisions (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T18_inspection_does_not_affect_decisions)
+T18: Inspection does not affect decisions -> No invented positive value after costs. ... ok
+test_T19_unexpected_real_delay_breaks_feasible_estimate (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T19_unexpected_real_delay_breaks_feasible_estimate)
+T19: Unexpected real delay breaks a feasible estimate -> Realized failure recorded; original plan remains valid under nominal assumptions. ... ok
+test_T20_no_baseline_spoilage (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T20_no_baseline_spoilage)
+T20: No baseline spoilage -> Percentage reduction shown as None (not applicable); absolute difference retained. ... ok
+test_T21_unsold_stock_survives_horizon_carryover (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T21_unsold_stock_survives_horizon_carryover)
+T21: Unsold stock survives horizon -> Carryover, not spoilage. ... ok
+test_T22_two_users_commit_against_one_revision (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T22_two_users_commit_against_one_revision)
+T22: Two users commit against one revision -> Exactly one succeeds; the other receives conflict. ... ok
+test_T23_quarantined_batch_no_allocation (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T23_quarantined_batch_no_allocation)
+T23: Quarantined batch -> No allocation even if profitable. ... ok
+test_T24_true_outcome_field_injected_into_planner_input_rejected (integration.test_mandatory_scenarios_t01_t24.TestMandatoryScenariosT01ToT24.test_T24_true_outcome_field_injected_into_planner_input_rejected)
+T24: True outcome field injected into planner input -> Rejected by contract. ... ok
+test_2d_stress_surface_and_pareto_lambda_curve (unit.test_differentiators_and_future_scope.TestDifferentiatorsAndFutureScope.test_2d_stress_surface_and_pareto_lambda_curve) ... ok
+test_differentiator_api_endpoints (unit.test_differentiators_and_future_scope.TestDifferentiatorsAndFutureScope.test_differentiator_api_endpoints) ... ok
+test_operational_copilot_briefing_and_qa (unit.test_differentiators_and_future_scope.TestDifferentiatorsAndFutureScope.test_operational_copilot_briefing_and_qa) ... ok
+test_plan_fragility_and_domino_cascade_analyzer (unit.test_differentiators_and_future_scope.TestDifferentiatorsAndFutureScope.test_plan_fragility_and_domino_cascade_analyzer) ... ok
+test_q10_arrhenius_coldchain_excursion_model (unit.test_differentiators_and_future_scope.TestDifferentiatorsAndFutureScope.test_q10_arrhenius_coldchain_excursion_model) ... ok
+test_ledger_conservation_across_commit_and_events (unit.test_ledger_and_reducer.TestScenarioValidationAndLedger.test_ledger_conservation_across_commit_and_events) ... ok
+test_malformed_scenarios_rejected_with_field_paths (unit.test_ledger_and_reducer.TestScenarioValidationAndLedger.test_malformed_scenarios_rejected_with_field_paths) ... ok
+test_valid_scenario_passes_all_14_checks (unit.test_ledger_and_reducer.TestScenarioValidationAndLedger.test_valid_scenario_passes_all_14_checks) ... ok
+test_2d_stress_surface_and_pareto_lambda_curve (unit.test_units_and_economics.TestUnitsAndEconomics.test_2d_stress_surface_and_pareto_lambda_curve) ... ok
+test_audit_adversarial_reservation_exhaustive_oracle_matches_two_stage_mip (unit.test_units_and_economics.TestUnitsAndEconomics.test_audit_adversarial_reservation_exhaustive_oracle_matches_two_stage_mip)
+P1 Audit: Adversarial tiny instance where flexible batch B-FLEX must be reserved for D-FAR so fragile B-URGENT can serve D-NEAR. ... ok
+test_audit_defect1_committed_cost_not_double_charged_in_replay (unit.test_units_and_economics.TestUnitsAndEconomics.test_audit_defect1_committed_cost_not_double_charged_in_replay)
+Audit Defect #1: Committing an unchanged FEFO plan must not double-subtract sunk committed cost in replay. ... ok
+test_audit_defect2_inspection_clock_preserves_absolute_expiry_and_is_idempotent (unit.test_units_and_economics.TestUnitsAndEconomics.test_audit_defect2_inspection_clock_preserves_absolute_expiry_and_is_idempotent)
+Audit Defect #2: Inspecting at t=100 for 15m on a batch expiring at t=320 with medium band keeps expiry at 320 (rem=205), not 420. ... ok
+test_audit_defect3_buffered_candidate_passes_assumption_aware_validation (unit.test_units_and_economics.TestUnitsAndEconomics.test_audit_defect3_buffered_candidate_passes_assumption_aware_validation)
+Audit Defect #3: Buffered candidate (+20m route delay) is accepted under its declared assumption contract and all 6 profiles compete. ... ok
+test_audit_defect4_cross_field_allocation_reference_mismatch_rejected (unit.test_units_and_economics.TestUnitsAndEconomics.test_audit_defect4_cross_field_allocation_reference_mismatch_rejected)
+Audit Defect #4: Mutating an allocation destination or unit price is rejected by the independent validator. ... ok
+test_audit_feature_a_b_c_fragility_replay_boundary_and_recovery_options (unit.test_units_and_economics.TestUnitsAndEconomics.test_audit_feature_a_b_c_fragility_replay_boundary_and_recovery_options)
+Features A, B, C: Replay-verified failure boundary and bounded recovery comparator. ... ok
+test_decimal_paise_conversion_and_expiry_math (unit.test_units_and_economics.TestUnitsAndEconomics.test_decimal_paise_conversion_and_expiry_math) ... ok
+test_operational_copilot_briefing_and_qa (unit.test_units_and_economics.TestUnitsAndEconomics.test_operational_copilot_briefing_and_qa) ... ok
+test_plan_fragility_and_domino_cascade (unit.test_units_and_economics.TestUnitsAndEconomics.test_plan_fragility_and_domino_cascade) ... ok
+test_q10_arrhenius_coldchain_excursion_model (unit.test_units_and_economics.TestUnitsAndEconomics.test_q10_arrhenius_coldchain_excursion_model) ... ok
+test_section_12_2_hand_calculated_financial_fixture (unit.test_units_and_economics.TestUnitsAndEconomics.test_section_12_2_hand_calculated_financial_fixture)
+Verify exact numbers from Section 12.2: ... ok
+test_small_exhaustive_oracle_matches_mip (unit.test_units_and_economics.TestUnitsAndEconomics.test_small_exhaustive_oracle_matches_mip)
+Step 10 & Section 12.1: MIP optimal objective matches small exhaustive enumeration oracle. ... ok
+
+----------------------------------------------------------------------
+Ran 73 tests in 114.039s
+
+OK
