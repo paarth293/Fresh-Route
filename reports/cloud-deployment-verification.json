@@ -1,0 +1,22 @@
+{
+  "url": "https://lastwindow-production.up.railway.app",
+  "verified_at": "2026-10-15T18:07:12.659Z",
+  "checks": {
+    "health": true,
+    "api_requires_login": true,
+    "https_login_secure_cookie": true,
+    "native_solver_and_validation": true,
+    "saved_plan_id": "plan_nominal_mip_c1b01848",
+    "decision_receipt": true,
+    "simulation_replay": true,
+    "mobile_no_horizontal_overflow": true,
+    "logout_revokes_session": true,
+    "browser_runtime_errors": [],
+    "saved_plan_retrievable_in_fresh_session": true
+  },
+  "storage": {
+    "persistent_volume_mount": "/data",
+    "volume_mb": 500,
+    "restart_test_performed": false
+  }
+}
