@@ -194,6 +194,22 @@ class TestHardening(unittest.TestCase):
         self.assertEqual(secured.get('/api/v1/demo-scenarios').status_code, 401)
         secured.close()
 
+    def test_tls_termination_sets_secure_cookie_without_proxy_trust(self):
+        origin = 'https://lastwindow.example.test'
+        with patch.dict(os.environ, {
+            'FRESHROUTE_OPERATOR_PASSWORD': 'test-workspace-password',
+            'FRESHROUTE_SECURE_COOKIES': '1',
+            'FRESHROUTE_ALLOWED_ORIGINS': origin,
+        }):
+            with TestClient(create_app()) as secured:
+                login = secured.post('/api/v1/auth/login', json={'password': 'test-workspace-password'}, headers={'Origin': origin})
+                self.assertEqual(login.status_code, 200)
+                self.assertIn('Secure', login.headers['set-cookie'])
+                self.assertIn('HttpOnly', login.headers['set-cookie'])
+                # The internal HTTP URL does not receive a Secure cookie.
+                self.assertEqual(secured.get('/api/v1/demo-scenarios').status_code, 401)
+                self.assertEqual(secured.post('/api/v1/auth/login', json={'password': 'test-workspace-password'}, headers={'Origin': 'https://attacker.invalid'}).status_code, 403)
+
     def test_login_rate_limit_and_short_password_rejected(self):
         with patch.dict(os.environ, {'FRESHROUTE_OPERATOR_PASSWORD': 'test-workspace-password'}):
             secured = TestClient(create_app())

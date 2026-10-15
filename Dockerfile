@@ -12,7 +12,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     FRESHROUTE_DB_PATH=/data/freshroute.sqlite3 \
     FRESHROUTE_REQUIRE_AUTH=1 \
-    FORWARDED_ALLOW_IPS=*
+    FRESHROUTE_SECURE_COOKIES=1
 WORKDIR /app
 # OR-Tools/SCIP and numerical wheels require the GNU C++ runtime.
 RUN apt-get update && apt-get install -y --no-install-recommends libstdc++6 \

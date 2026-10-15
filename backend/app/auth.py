@@ -118,7 +118,7 @@ def configure_auth(app):
         signature = hmac.new(signing_key, message.encode(), hashlib.sha256).hexdigest()
         response = JSONResponse({"authenticated": True})
         response.set_cookie(COOKIE, f"{message}.{signature}", max_age=ttl, httponly=True,
-                            secure=request.url.scheme == "https", samesite="strict", path="/")
+                            secure=request.url.scheme == "https" or os.environ.get("FRESHROUTE_SECURE_COOKIES") == "1", samesite="strict", path="/")
         return response
 
     @app.post("/api/v1/auth/logout")

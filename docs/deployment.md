@@ -14,8 +14,9 @@ The repository root must be the build context. The multi-stage Dockerfile compil
 - `FRESHROUTE_OPERATOR_PASSWORD`: generated secret, at least 12 characters; supply through the hosting secret store, never Git. Share separately with judges who need access.
 - `FRESHROUTE_REQUIRE_AUTH=1` (image default). Startup refuses an absent or short password.
 - `PORT`: supplied by Railway, read by the entrypoint.
-- `FORWARDED_ALLOW_IPS=*` (image default): trust the hosting ingress to report HTTPS. This image is intended to sit behind a trusted platform proxy; for direct exposure, set the specific trusted proxy addresses instead.
-- Leave `FRESHROUTE_ALLOWED_ORIGINS` unset for the same-origin interface; set an explicit HTTPS origin if serving the interface separately.
+- `FRESHROUTE_SECURE_COOKIES=1` (image default): session cookies require HTTPS, including when TLS terminates at the hosting ingress.
+- `FORWARDED_ALLOW_IPS` is not broadened: the entrypoint defaults to loopback. The app does not require arbitrary proxy headers to be trusted.
+- `FRESHROUTE_ALLOWED_ORIGINS`: set to the exact public HTTPS origin. This permits browser mutations when the hosting ingress terminates TLS before forwarding to the application.
 - Health check: `/health`, timeout 120 seconds.
 - Public HTTPS domain: generate once the service starts.
 - Keep one replica and one worker. The current queue and authentication sessions are local to one API process.
